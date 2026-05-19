@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pashu-Aahar | Smart Nutrition for Your Herd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cow-gradient {
+            background: linear-gradient(135deg, #1B5E20 0%, #4CAF50 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl">🐄</span>
+                    <span class="text-2xl font-bold text-green-800 tracking-tight">Pashu-Aahar</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="hover:text-green-600 font-medium">Features</a>
+                    <a href="#screenshots" class="hover:text-green-600 font-medium">Screenshots</a>
+                    <a href="#setup" class="hover:text-green-600 font-medium">Setup</a>
+                    <a href="https://github.com/dattatrireddy34-code/Pashu_Ahar" target="_blank" class="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="cow-gradient py-20 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 space-y-6">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+                    Smart Nutrition for Your <span class="underline decoration-yellow-400">Herd</span>
+                </h1>
+                <p class="text-xl text-green-50 opacity-90">
+                    Empower your dairy farm with data-driven insights. Track health, yield, and costs seamlessly with our comprehensive platform.
+                </p>
+                <div class="flex space-x-4">
+                    <button class="bg-white text-green-800 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-50 transition">Get App</button>
+                    <button class="border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-green-800 transition">View Demo</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center relative">
+                <div class="w-64 h-64 bg-yellow-400 rounded-full absolute blur-3xl opacity-20 animate-pulse"></div>
+                <img src="../screenshots/cows.png" alt="App Preview" class="w-64 rounded-[3rem] shadow-2xl border-8 border-gray-800 transform rotate-3 hover:rotate-0 transition duration-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 border-b-4 border-green-500">
+                <div class="bg-green-100 p-3 rounded-xl text-green-600"><i class="fas fa-cow fa-2x"></i></div>
+                <div><p class="text-gray-500 text-sm">Total Cows</p><p class="text-2xl font-bold">12</p></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 border-b-4 border-blue-500">
+                <div class="bg-blue-100 p-3 rounded-xl text-blue-600"><i class="fas fa-tint fa-2x"></i></div>
+                <div><p class="text-gray-500 text-sm">Daily Yield</p><p class="text-2xl font-bold">45.5 L</p></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 border-b-4 border-yellow-500">
+                <div class="bg-yellow-100 p-3 rounded-xl text-yellow-600"><i class="fas fa-chart-line fa-2x"></i></div>
+                <div><p class="text-gray-500 text-sm">Efficiency</p><p class="text-2xl font-bold">85%</p></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 border-b-4 border-red-500">
+                <div class="bg-red-100 p-3 rounded-xl text-red-600"><i class="fas fa-heartbeat fa-2x"></i></div>
+                <div><p class="text-gray-500 text-sm">Active Cases</p><p class="text-2xl font-bold">2</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Powerful Features for Farmers</h2>
+                <p class="mt-4 text-gray-600">Everything you need to manage your dairy business efficiently.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition group">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-600 group-hover:text-white transition">
+                        <i class="fas fa-th-large fa-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">My Herd Dashboard</h3>
+                    <p class="text-gray-600 leading-relaxed">Real-time stats on total cows, yield, efficiency, and health at a glance.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition group">
+                    <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition">
+                        <i class="fas fa-notes-medical fa-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Disease Tracking</h3>
+                    <p class="text-gray-600 leading-relaxed">Monitor active cases, treatments, and recovery status with severity indicators.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition group">
+                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                        <i class="fas fa-wallet fa-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cost Tracker</h3>
+                    <p class="text-gray-600 leading-relaxed">Log expenses and income with dynamic charts and cow-wise financial analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup Guide -->
+    <section id="setup" class="bg-gray-100 py-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Getting Started</h2>
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-600">
+                    <h4 class="font-bold text-lg mb-2">1. Clone Repository</h4>
+                    <pre class="bg-gray-50 p-3 rounded-lg text-sm font-mono overflow-x-auto">git clone git@github.com:dattatrireddy34-code/Pashu_Ahar.git</pre>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-600">
+                    <h4 class="font-bold text-lg mb-2">2. Backend Setup</h4>
+                    <pre class="bg-gray-50 p-3 rounded-lg text-sm font-mono overflow-x-auto">cd backend && npm install && npm start</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12 text-center">
+        <p class="text-gray-500 text-sm">© 2024 Pashu-Aahar. Built for dairy management excellence.</p>
+    </footer>
+
+</body>
+</html>
