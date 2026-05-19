@@ -35,11 +35,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberAsyncImagePainter
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.pashu_ahar.R
 import com.example.pashu_ahar.api.ApiService
 import com.example.pashu_ahar.api.SessionManager
 import com.example.pashu_ahar.components.BottomNavigationBar
 import com.example.pashu_ahar.ui.theme.DarkGreen
+import com.example.pashu_ahar.ui.theme.Pashu_AharTheme
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -67,6 +69,8 @@ fun AddCowScreen(
     var targetYield by remember { mutableStateOf(18.0f) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     var showBreedDialog by remember { mutableStateOf(false) }
+    var customBreed by remember { mutableStateOf("") }
+    var isCustomBreed by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
@@ -119,7 +123,16 @@ fun AddCowScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             when (currentStep) {
-                1 -> Step1BreedAndName(name, { name = it }, breed, { showBreedDialog = true }, imageUri, { launcher.launch("image/*") })
+                1 -> Step1BreedAndName(
+                    name = name,
+                    onNameChange = { name = it },
+                    breed = breed,
+                    isCustomBreed = isCustomBreed,
+                    onBreedChange = { breed = it },
+                    onBreedClick = { showBreedDialog = true },
+                    imageUri = imageUri,
+                    onImageClick = { launcher.launch("image/*") }
+                )
                 2 -> Step2BodyDetails(age, { age = it }, weight, { weight = it })
                 3 -> Step3YieldTarget(currentYield, { currentYield = it }, targetYield, { targetYield = it })
             }
@@ -193,7 +206,27 @@ fun AddCowScreen(
     }
 
     if (showBreedDialog) {
-        BreedSelectorDialog(onDismiss = { showBreedDialog = false }, onSelect = { breed = it; showBreedDialog = false })
+        BreedSelectorDialog(
+            onDismiss = { showBreedDialog = false },
+            onSelect = { selected ->
+                if (selected == "Other") {
+                    isCustomBreed = true
+                    breed = ""
+                } else {
+                    isCustomBreed = false
+                    breed = selected
+                }
+                showBreedDialog = false
+            }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AddCowScreenPreview() {
+    Pashu_AharTheme {
+        AddCowScreen({}, {}, {}, {}, {}, {})
     }
 }
 
@@ -231,7 +264,16 @@ fun StepIndicator(currentStep: Int) {
 }
 
 @Composable
-fun Step1BreedAndName(name: String, onNameChange: (String) -> Unit, breed: String, onBreedClick: () -> Unit, imageUri: Uri?, onImageClick: () -> Unit) {
+fun Step1BreedAndName(
+    name: String,
+    onNameChange: (String) -> Unit,
+    breed: String,
+    isCustomBreed: Boolean,
+    onBreedChange: (String) -> Unit,
+    onBreedClick: () -> Unit,
+    imageUri: Uri?,
+    onImageClick: () -> Unit
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = Modifier
@@ -281,19 +323,34 @@ fun Step1BreedAndName(name: String, onNameChange: (String) -> Unit, breed: Strin
                 Icon(Icons.Default.Pets, contentDescription = null, tint = DarkGreen, modifier = Modifier.size(18.dp))
                 Text(" Breed", fontWeight = FontWeight.Bold, fontSize = 14.sp)
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
-                    .height(56.dp)
-                    .border(1.dp, Color.Gray, RoundedCornerShape(12.dp))
-                    .clickable { onBreedClick() }
-                    .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(breed, modifier = Modifier.weight(1f))
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = null)
+            if (isCustomBreed) {
+                OutlinedTextField(
+                    value = breed,
+                    onValueChange = onBreedChange,
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    placeholder = { Text("Enter breed name") },
+                    shape = RoundedCornerShape(12.dp),
+                    trailingIcon = {
+                        IconButton(onClick = onBreedClick) {
+                            Icon(Icons.Default.List, contentDescription = "Select from list")
+                        }
+                    }
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                        .height(56.dp)
+                        .border(1.dp, Color.Gray, RoundedCornerShape(12.dp))
+                        .clickable { onBreedClick() }
+                        .padding(horizontal = 16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(if (breed.isEmpty()) "Select Breed" else breed, modifier = Modifier.weight(1f))
+                        Icon(Icons.Default.KeyboardArrowDown, contentDescription = null)
+                    }
                 }
             }
         }
@@ -419,7 +476,7 @@ fun InfoBox(text: String) {
 
 @Composable
 fun BreedSelectorDialog(onDismiss: () -> Unit, onSelect: (String) -> Unit) {
-    val breeds = listOf("Holstein Friesian", "Jersey", "Brown Swiss", "Guernsey", "Ayrshire", "Milking Shorthorn", "Gir", "Sahiwal")
+    val breeds = listOf("Holstein Friesian", "Jersey", "Brown Swiss", "Guernsey", "Ayrshire", "Milking Shorthorn", "Gir", "Sahiwal", "Other")
     
     Dialog(onDismissRequest = onDismiss) {
         Card(

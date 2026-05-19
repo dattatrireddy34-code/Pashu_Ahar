@@ -155,15 +155,11 @@ fun LoginScreen(
                     }
                     isLoading = true
                     scope.launch {
-                        println("DEBUG: Login attempt started for $email")
                         try {
                             val apiService = ApiService.create()
-                            println("DEBUG: ApiService created")
                             val response = apiService.login(LoginRequest(email, password))
-                            println("DEBUG: Response received: ${response.code()}")
                             if (response.isSuccessful) {
                                 val body = response.body()
-                                println("DEBUG: Body: $body")
                                 if (body?.success == true) {
                                     val sessionManager = SessionManager(context)
                                     body.token?.let { sessionManager.saveAuthToken(it) }
@@ -180,12 +176,9 @@ fun LoginScreen(
                                 } catch (e: Exception) {
                                     "Login failed"
                                 }
-                                println("DEBUG: Error body: $errorMsg")
                                 Toast.makeText(context, "Error $errorMsg", Toast.LENGTH_SHORT).show()
                             }
                         } catch (e: Exception) {
-                            println("DEBUG: Exception: ${e.message}")
-                            e.printStackTrace()
                             Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         } finally {
                             isLoading = false

@@ -66,6 +66,25 @@ class MockInterceptor : Interceptor {
             """.trimIndent())
         }
 
+        if (path.endsWith("/api/cows") && method == "POST") {
+            Log.d("MockInterceptor", "Returning Mock Create Cow")
+            return createResponse(chain, """
+                {
+                    "success": true,
+                    "message": "Cow added successfully (MOCK)",
+                    "data": {
+                        "_id": "mock_cow_${System.currentTimeMillis()}",
+                        "name": "Mock Cow",
+                        "breed": "Gir",
+                        "age": 3,
+                        "weight": 400,
+                        "currentYield": 10.0,
+                        "targetYield": 12.0
+                    }
+                }
+            """.trimIndent())
+        }
+
         if (path.endsWith("/api/cows") && method == "GET") {
             return createResponse(chain, """
                 {
