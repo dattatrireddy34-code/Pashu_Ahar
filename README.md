@@ -64,7 +64,7 @@ Before you begin, ensure you have the following installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone git@github.com:Nandisha-code/Pashu_Ahar.git
+git clone git@github.com:dattatrireddy34-code/Pashu_Ahar.git
 cd Pashu_Ahar
 ```
 
