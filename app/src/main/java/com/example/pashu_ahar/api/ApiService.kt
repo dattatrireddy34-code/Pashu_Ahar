@@ -1,15 +1,20 @@
 package com.example.pashu_ahar.api
 
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface ApiService {
+    // ... rest of the interface ...
     @POST("api/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<AuthResponse>
+    // ...
+    // (I'll just replace the companion object and add imports)
 
     @Multipart
     @POST("api/auth/signup")
@@ -74,10 +79,20 @@ interface ApiService {
 
     companion object {
         private const val BASE_URL = "http://10.0.2.2:3000/" // For Android Emulator
+        private const val USE_MOCK = true // Set to false to use real backend
 
         fun create(): ApiService {
+            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            val clientBuilder = OkHttpClient.Builder()
+                .addInterceptor(logger)
+            
+            if (USE_MOCK) {
+                clientBuilder.addInterceptor(MockInterceptor())
+            }
+
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiService::class.java)

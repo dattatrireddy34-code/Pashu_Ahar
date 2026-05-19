@@ -155,20 +155,37 @@ fun LoginScreen(
                     }
                     isLoading = true
                     scope.launch {
+                        println("DEBUG: Login attempt started for $email")
                         try {
                             val apiService = ApiService.create()
+                            println("DEBUG: ApiService created")
                             val response = apiService.login(LoginRequest(email, password))
-                            if (response.isSuccessful && response.body()?.success == true) {
-                                val sessionManager = SessionManager(context)
-                                response.body()?.token?.let { sessionManager.saveAuthToken(it) }
-                                response.body()?.user?.let { 
-                                    sessionManager.saveUserDetail(it)
+                            println("DEBUG: Response received: ${response.code()}")
+                            if (response.isSuccessful) {
+                                val body = response.body()
+                                println("DEBUG: Body: $body")
+                                if (body?.success == true) {
+                                    val sessionManager = SessionManager(context)
+                                    body.token?.let { sessionManager.saveAuthToken(it) }
+                                    body.user?.let { 
+                                        sessionManager.saveUserDetail(it)
+                                    }
+                                    onLoginSuccess("Welcome ${body.user?.fullName}")
+                                } else {
+                                    Toast.makeText(context, body?.message ?: "Login failed: Invalid response", Toast.LENGTH_SHORT).show()
                                 }
-                                onLoginSuccess("Welcome ${response.body()?.user?.fullName}")
                             } else {
-                                Toast.makeText(context, response.body()?.message ?: "Login failed", Toast.LENGTH_SHORT).show()
+                                val errorMsg = try {
+                                    response.errorBody()?.string() ?: "Login failed"
+                                } catch (e: Exception) {
+                                    "Login failed"
+                                }
+                                println("DEBUG: Error body: $errorMsg")
+                                Toast.makeText(context, "Error $errorMsg", Toast.LENGTH_SHORT).show()
                             }
                         } catch (e: Exception) {
+                            println("DEBUG: Exception: ${e.message}")
+                            e.printStackTrace()
                             Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         } finally {
                             isLoading = false

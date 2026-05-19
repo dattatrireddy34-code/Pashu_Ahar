@@ -26,11 +26,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
 import com.example.pashu_ahar.R
 import com.example.pashu_ahar.api.*
 import com.example.pashu_ahar.components.BottomNavigationBar
 import com.example.pashu_ahar.ui.theme.DarkGreen
+import com.example.pashu_ahar.ui.theme.Pashu_AharTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -153,10 +155,10 @@ fun HomeScreen(
                         }
                     } else {
                         items(cows, key = { it._id ?: it.hashCode() }) { cow ->
-                            CowItem(cow, { 
+                            CowItem(cow) { 
                                 selectedCow = cow
                                 showActions = true
-                            })
+                            }
                             Spacer(modifier = Modifier.height(12.dp))
                         }
                     }
@@ -410,5 +412,20 @@ fun ActionRow(icon: ImageVector, text: String, color: Color, onClick: () -> Unit
         }
         Spacer(modifier = Modifier.width(16.dp))
         Text(text, color = if (color == Color.Red) color else Color.Black, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    Pashu_AharTheme {
+        HomeScreen(
+            onAddCowClick = {},
+            onCowClick = {},
+            onDiseaseClick = {},
+            onCostTrackerClick = {},
+            onProfileClick = {},
+            onLogout = {}
+        )
     }
 }
